@@ -1,0 +1,2 @@
+# TweetsWithHashtagsOnTwitterToCommentScreen
+Twitterから「#ctrl_sintyoku」というハッシュタグを拾ってComment Screenに投げるスクリプト
