@@ -32,7 +32,7 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     // LINQ to JSONでツイート本文を取り出す
                     var text = (string)parsedJson["text"];
 
-                    // 成形なしでツイート本文を表h時
+                    // 成形なしでツイート本文を表示
                     Console.WriteLine(text);
 
                     // 改行
