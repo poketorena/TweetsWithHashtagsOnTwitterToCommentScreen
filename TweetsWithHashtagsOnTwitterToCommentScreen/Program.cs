@@ -19,6 +19,7 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                 "AccessTokenSecret"
                 );
 
+            // 監視するハッシュタグ
             var hashtagText = "ctrl_sintyoku";
 
             // フィルターストリームへの接続とツイート時の対応
@@ -38,10 +39,11 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     // 改行
                     Console.WriteLine();
 
-                    // ツイート本文からハッシュタグのテキストを除去する（デフォルトでは「#ctrl_sintyoku」を除去する）
-                    Console.WriteLine(text.Replace($"#{hashtagText}", ""));
-
+                    // ツイート本文からハッシュタグのテキストを除去するβ（デフォルトでは「#ctrl_sintyoku」を除去する）
                     var hashtagRemovedText = text.Replace($"#{hashtagText}", "");
+
+                    // ハッシュタグ取り除いたテキストを表示
+                    Console.WriteLine(hashtagRemovedText);
 
                     // ChromeOptionsオブジェクトを生成する
                     var options = new ChromeOptions();
