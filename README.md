@@ -10,7 +10,12 @@ Google Chromeがインストール済みであること。
 
 ### Windows or Mac
 
-クローンまたはダウンロードしたソリューションファイルをVisual Studioで開いてF5で実行してください。
+1. ソリューションをクローンまたはダウンロードする。
+1. ソリューションファイルをVisual Studioで開く。
+1. Program.csを開き、ConsumerKey、ConsumerSecret、AccessToken、AccessTokenSecretを自分のものに書き換える。
+1. F5等で実行する。
+
+
 
 ### Linux
 
