@@ -16,7 +16,9 @@ Google Chromeがインストール済みであること。
 
 以下を参考に気合でどうぞ。
 
-https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
+https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-10/sdk-2.1.603
+
+https://docs.microsoft.com/ja-jp/dotnet/core/tools/index?tabs=netcore2x
 
 ## 開発環境
 
