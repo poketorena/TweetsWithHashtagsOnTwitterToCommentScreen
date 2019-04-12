@@ -20,6 +20,17 @@ https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-10/sdk-2.1.
 
 https://docs.microsoft.com/ja-jp/dotnet/core/tools/index?tabs=netcore2x
 
+ただし
+
+```
+Connection refused Connection refused
+Starting ChromeDriver 73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72) on port 38563
+Only local connections are allowed.
+Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
+
+```
+と言われて動作しないのでこれをなんとかする必要があります。（未検証）
+
 ## 開発環境
 
 * Windows 10 Home
