@@ -81,6 +81,8 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                 {
                     if (Console.ReadKey().Key.ToString() == "E")
                     {
+                        // リソースの開放
+                        disposable.Dispose();
                         return;
                     }
                 }
