@@ -42,11 +42,25 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     // 改行
                     Console.WriteLine();
 
-                    // ツイート本文からハッシュタグのテキストを除去するβ（デフォルトでは「#ctrl_sintyoku」を除去する）
+                    // ツイート本文からハッシュタグの文字列を除去するβ（デフォルトでは「#ctrl_sintyoku」を除去する）
                     var hashtagRemovedText = RemoveHashtag(text);
 
-                    // ハッシュタグ取り除いたテキストを表示
+                    // ハッシュタグ取り除いた文字列を表示
                     Console.WriteLine(hashtagRemovedText);
+
+                    // 省略用URLの開始インデックスを取得
+                    var clipStartIndex = hashtagRemovedText.IndexOf(@"https://t.co/");
+
+                    var clipedText = hashtagRemovedText;
+
+                    if (clipStartIndex != -1)
+                    {
+                        // 長いツイートの場合末尾に省略用URLが付くのでそれを取り除く
+                        clipedText = hashtagRemovedText.Substring(0, clipStartIndex - 1);
+                    }
+
+                    // 省略URLを取り除いた文字列を表示
+                    Console.WriteLine(clipedText);
 
                     // ChromeOptionsオブジェクトを生成する
                     var options = new ChromeOptions();
@@ -60,8 +74,8 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     // URLに移動する
                     chrome.Url = @"https://commentscreen.com/comments?room=" + hashtagText;
 
-                    // テキストを自動入力する
-                    chrome.FindElementByClassName("type_msg").SendKeys(hashtagRemovedText);
+                    // 文字列を自動入力する
+                    chrome.FindElementByClassName("type_msg").SendKeys(clipedText);
 
                     // 送信ボタンを押す
                     chrome.FindElementByClassName("send_btn").Click();
@@ -70,7 +84,7 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     chrome.Quit();
 
                     // 送信確認用コメント
-                    Console.WriteLine($"CommentScreenに「{hashtagRemovedText}」を送信しました");
+                    Console.WriteLine($"CommentScreenに「{clipedText}」を送信しました");
                 });
 
             // 接続確認用コメント
@@ -95,17 +109,17 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
         /// <summary>
         /// ハッシュタグを除去した文字列を返します。
         /// </summary>
-        /// <param name="sourceString">ハッシュタグを含む文字列</param>
+        /// <param name="sourceText">ハッシュタグを含む文字列</param>
         /// <returns>ハッシュタグを除去した文字列</returns>
-        static string RemoveHashtag(string sourceString)
+        static string RemoveHashtag(string sourceText)
         {
-            var splitedStrings = sourceString.Split("\r\n").ToList();
+            var splitedTexts = sourceText.Split("\r\n").ToList();
 
-            var resultStrings = new List<string>();
+            var resultTexts = new List<string>();
 
             var skip = false;
 
-            foreach (var line in splitedStrings)
+            foreach (var line in splitedTexts)
             {
                 if (line.Length > 3 && line.Substring(0, 2) == "RT")
                 {
@@ -136,22 +150,22 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                 }
                 skip = false;
 
-                resultStrings.Add(stringBuilder.ToString());
+                resultTexts.Add(stringBuilder.ToString());
             }
 
-            if (resultStrings.Count == 1)
+            if (resultTexts.Count == 1)
             {
-                return resultStrings[0];
+                return resultTexts[0];
             }
             else
             {
                 var stringBuilder = new StringBuilder();
 
-                foreach (var (line, index) in resultStrings.Indexed())
+                foreach (var (line, index) in resultTexts.Indexed())
                 {
                     stringBuilder.Append(line);
 
-                    if (index != resultStrings.Count - 1)
+                    if (index != resultTexts.Count - 1)
                     {
                         stringBuilder.Append("\r\n");
                     }
