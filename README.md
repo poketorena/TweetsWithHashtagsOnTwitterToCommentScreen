@@ -16,9 +16,7 @@ Google Chromeがインストール済みであること。
 
 以下を参考に気合でどうぞ。
 
-https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/runtime-2.1.10
-
-https://docs.microsoft.com/ja-jp/dotnet/core/tutorials/using-with-xplat-cli
+https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
 
 ## 開発環境
 
