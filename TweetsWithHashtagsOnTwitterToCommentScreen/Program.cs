@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using CoreTweet;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium.Chrome;
@@ -40,7 +43,7 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     Console.WriteLine();
 
                     // ツイート本文からハッシュタグのテキストを除去するβ（デフォルトでは「#ctrl_sintyoku」を除去する）
-                    var hashtagRemovedText = text.Replace($"#{hashtagText}", "");
+                    var hashtagRemovedText = RemoveHashtag(text);
 
                     // ハッシュタグ取り除いたテキストを表示
                     Console.WriteLine(hashtagRemovedText);
@@ -86,6 +89,75 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                         return;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// ハッシュタグを除去した文字列を返します。
+        /// </summary>
+        /// <param name="sourceString">ハッシュタグを含む文字列</param>
+        /// <returns>ハッシュタグを除去した文字列</returns>
+        static string RemoveHashtag(string sourceString)
+        {
+            var splitedStrings = sourceString.Split("\r\n").ToList();
+
+            var resultStrings = new List<string>();
+
+            var skip = false;
+
+            foreach (var line in splitedStrings)
+            {
+                if (line.Length > 3 && line.Substring(0, 2) == "RT")
+                {
+                    continue;
+                }
+
+                var stringBuilder = new StringBuilder();
+
+                foreach (var c in line)
+                {
+                    if (skip)
+                    {
+                        if (c == ' ')
+                        {
+                            skip = false;
+                        }
+                        continue;
+                    }
+
+                    // ハッシュタグの読み飛ばし
+                    if (c == '#')
+                    {
+                        skip = true;
+                        continue;
+                    }
+
+                    stringBuilder.Append(c);
+                }
+                skip = false;
+
+                resultStrings.Add(stringBuilder.ToString());
+            }
+
+            if (resultStrings.Count == 1)
+            {
+                return resultStrings[0];
+            }
+            else
+            {
+                var stringBuilder = new StringBuilder();
+
+                foreach (var (line, index) in resultStrings.Indexed())
+                {
+                    stringBuilder.Append(line);
+
+                    if (index != resultStrings.Count - 1)
+                    {
+                        stringBuilder.Append("\r\n");
+                    }
+                }
+
+                return stringBuilder.ToString();
             }
         }
     }
