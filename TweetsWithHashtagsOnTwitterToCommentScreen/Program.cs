@@ -74,17 +74,31 @@ namespace TweetsWithHashtagsOnTwitterToCommentScreen
                     // URLに移動する
                     chrome.Url = @"https://commentscreen.com/comments?room=" + hashtagText;
 
-                    // 文字列を自動入力する
-                    chrome.FindElementByClassName("type_msg").SendKeys(clipedText);
+                    try
+                    {
+                        // 文字列を自動入力する
+                        chrome.FindElementByClassName("type_msg").SendKeys(clipedText);
 
-                    // 送信ボタンを押す
-                    chrome.FindElementByClassName("send_btn").Click();
+                        // 送信ボタンを押す
+                        chrome.FindElementByClassName("send_btn").Click();
 
-                    // ブラウザを閉じる
-                    chrome.Quit();
+                        // 送信確認用コメント
+                        Console.WriteLine($"CommentScreenに「{clipedText}」を送信しました");
+                    }
+                    catch (Exception e)
+                    {
+                        // 例外を握りつぶすてコンソールに例外内容を出力する
+                        Console.WriteLine("Chromeの自動操作時に例外が発生しました。おそらく絵文字が原因です。");
+                        Console.WriteLine($"送信しようとした文字列は「{clipedText}」です。");
+                        Console.WriteLine("---以下エラーメッセージ---");
+                        Console.WriteLine(e.Message);
+                    }
+                    finally
+                    {
+                        // ブラウザを閉じる
+                        chrome.Quit();
+                    }
 
-                    // 送信確認用コメント
-                    Console.WriteLine($"CommentScreenに「{clipedText}」を送信しました");
                 });
 
             // 接続確認用コメント
