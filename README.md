@@ -10,6 +10,7 @@ Google Chromeがインストール済みであること。
 
 ### Windows or Mac
 
+1. Visual Studio Installerを起動し、「.NET Core クロスプラットフォーム開発」にチェックを付けてインストールする。
 1. ソリューションをクローンまたはダウンロードする。
 1. ソリューションファイルをVisual Studioで開く。
 1. Program.csを開き、ConsumerKey、ConsumerSecret、AccessToken、AccessTokenSecretを自分のものに書き換える。
